@@ -26,7 +26,7 @@ ContactList.propTypes = {
     )
   }
 
-const mapStateToProps = ({contacts: {items, filter}}) => ({
+const mapStateToProps = ({items, filter}) => ({
     contacts: getFilteredContactList(items, filter)
 })
 

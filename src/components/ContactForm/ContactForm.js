@@ -4,13 +4,10 @@ import contactsAction from '../../redux/contacts/contacts-actions'
 import { useState} from "react";
 import s from './ContactForm.module.scss';
 
-
 function ContactForm({onSubmit}) {
-
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
  
-
     const handlerChange = e => {
         const { value } = e.currentTarget;
         switch (e.currentTarget.name) {
