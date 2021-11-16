@@ -4,14 +4,19 @@ import contactsAction from '../../redux/contacts/contacts-actions'
 import { useState} from "react";
 import s from './ContactForm.module.scss';
 
-function ContactForm({onSubmit}) {
-    const [name, setName] = useState('');
+function ContactForm({onSubmit,contacts}) {
+    const [contactName, setContactname] = useState('');
     const [number, setNumber] = useState('');
- 
+
+    
+    const findContact = () => {
+     return contacts.find((contact) => contact.name === contactName)
+    }
+    
     const handlerChange = e => {
         const { value } = e.currentTarget;
         switch (e.currentTarget.name) {
-            case 'name': setName(value);
+            case 'name': setContactname(value);
                 break
             case 'number': setNumber(value);
                 break;
@@ -20,13 +25,17 @@ function ContactForm({onSubmit}) {
     };
 
    const  reset = () => {
-        setName('');
+        setContactname('');
         setNumber('');
     }
     
     const handlerSubmit = e => {
         e.preventDefault();
-        onSubmit(name, number);
+        if (findContact()) {
+               alert( contactName + ' is already in contacts' )
+            return;
+        }
+        onSubmit(contactName, number);
         reset();
     }
         return (
@@ -40,7 +49,7 @@ function ContactForm({onSubmit}) {
                         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                         title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
                         required
-                        value={name}
+                        value={contactName}
                         onChange={handlerChange}
                         autoComplete="off"
                     />
@@ -70,7 +79,14 @@ function ContactForm({onSubmit}) {
 //       return;
 //     }
 
+const mapStateToProps = ({items}) => ({
+    contacts: items
+})
+
 const mapDispatchToProps = dispatch => ({
         onSubmit: (name, number) => dispatch(contactsAction.addContact(name, number))
     })
-export default connect(null,mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+
+// const contacts = store.contacts
+//const myContacrs = useSelector(contacts)
