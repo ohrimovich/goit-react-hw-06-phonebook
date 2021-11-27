@@ -20,7 +20,7 @@ const items = createReducer([], {
 // }
 
 const filter = createReducer('', {
-    [actions.filter]: (_, {payload}) => payload
+    [actions.changeFilter]: (_, {payload}) => payload
 })
 
 // const filter = (state = '', {type,payload}) => {

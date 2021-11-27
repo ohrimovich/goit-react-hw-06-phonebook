@@ -32,7 +32,7 @@ const middleware = [...getDefaultMiddleware({
 const contactsPersistConfig = {
   key: 'contacts',
     storage,
-  blacklist: ['filter'],
+  // blacklist: ['filter'],
 }
 
 
